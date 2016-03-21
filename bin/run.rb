@@ -40,6 +40,19 @@ def parse(raw_request)
   }
 end
 
+USERS = [
+  {"first name" => "Colin", "last name" => "Recko", "age" => 27},
+  {"first name" => "Sarah", "last name" => "Huey", "age" => 28},
+  {"first name" => "Justin", "last name" => "Herrick", "age" => 2},
+  {"first name" => "Steven", "last name" => "Ralph", "age" => 28},
+  {"first name" => "Elizer", "last name" => "Rios", "age" => 27},
+  {"first name" => "Barack", "last name" => "Obama", "age" => 54},
+  {"first name" => "Beyonce", "last name" => "Knowles", "age" => 34},
+  {"first name" => "Brian", "last name" => "Bemben", "age" => 32},
+  {"first name" => "Conor", "last name" => "Recko", "age" => 23},
+  {"first name" => "Aileen", "last name" => "Wall", "age" => 93}
+]
+
 system('clear')
 loop do
   print "Supply a valid HTTP Request URL (h for help, q to quit) > "
@@ -54,11 +67,14 @@ loop do
   else
     @request = parse(raw_request)
     @params  = @request[:params]
-    # Use the @request and @params ivars to full the request and
-    # return an appropriate response
-
-    # YOUR CODE GOES BELOW HERE
-
-    # YOUR CODE GOES ABOVE HERE  ^
+    if "GET http://localhost:3000/users HTTP/1.1"
+      puts "HTTP/1.1 200 OK"
+    elsif "GET http://localhost:3000/users/1 HTTP/1.1"
+      puts "HTTP/1.1 200 OK"
+    elsif "GET http://localhost:3000/users/9999999 HTTP/1.1"
+      puts "HTTP 404 File Not Found"
+    else
+      puts "That's not a valid request."
+    end
   end
 end

@@ -67,7 +67,17 @@ loop do
   else
     @request = parse(raw_request)
     @params  = @request[:params]
-    if @request[:method] == "GET" && @params[:resource] == "users"
+    if @request[:method] == "GET" &&
+      @params[:resource] == "users" &&
+      (@params[:id].to_i-1) >= 0
+
+      id = @params[:id].to_i-1
+
+      puts "HTTP/1.1 200 OK"
+      puts
+      puts USERS[id]
+
+    elsif @request[:method] == "GET" && @params[:resource] == "users"
       puts "HTTP/1.1 200 OK"
       puts
       USERS.each do |user|
@@ -76,14 +86,9 @@ loop do
         end
         print "\n"
       end
-    elsif @request[:method] == "GET" && @params[:id] == "users"
-      puts "HTTP/1.1 200 OK"
-      puts
-      USERS[:id]
-    # elsif raw_request == "GET http://localhost:3000/users/9999999 HTTP/1.1"
-    #   puts "HTTP 404 File Not Found"
-    # else
-    #   puts "That's not a valid request."
+    else
+      puts "HTTP 404 File Not Found"
+      puts "That's not a valid request."
     end
   end
 end

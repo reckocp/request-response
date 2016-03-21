@@ -1,5 +1,4 @@
-require_relative '../db/setup'
-# Remember to put the requires here for all the classes you write and want to use
+require_relative '../lib/all'
 
 def parse_params(uri_fragments, query_param_string)
   params = {}
@@ -15,6 +14,7 @@ def parse_params(uri_fragments, query_param_string)
   end
   params
 end
+
 # You shouldn't need to touch anything in these methods.
 def parse(raw_request)
   pieces = raw_request.split(' ')
@@ -59,6 +59,7 @@ loop do
 
     # YOUR CODE GOES BELOW HERE
 
+    puts @request.inspect
     # YOUR CODE GOES ABOVE HERE  ^
   end
 end

@@ -41,16 +41,16 @@ def parse(raw_request)
 end
 
 USERS = [
-  {"first name" => "Colin", "last name" => "Recko", "age" => 27},
-  {"first name" => "Sarah", "last name" => "Huey", "age" => 28},
-  {"first name" => "Justin", "last name" => "Herrick", "age" => 2},
-  {"first name" => "Steven", "last name" => "Ralph", "age" => 28},
-  {"first name" => "Elizer", "last name" => "Rios", "age" => 27},
-  {"first name" => "Barack", "last name" => "Obama", "age" => 54},
-  {"first name" => "Beyonce", "last name" => "Knowles", "age" => 34},
-  {"first name" => "Brian", "last name" => "Bemben", "age" => 32},
-  {"first name" => "Conor", "last name" => "Recko", "age" => 23},
-  {"first name" => "Aileen", "last name" => "Wall", "age" => 93}
+  {:first => "Colin", :last => "Recko", :age => 27},
+  {:first => "Sarah", :last => "Huey", :age => 28},
+  {:first => "Justin", :last => "Herrick", :age => 2},
+  {:first => "Steven", :last => "Ralph", :age => 28},
+  {:first => "Elizer", :last => "Rios", :age => 27},
+  {:first => "Barack", :last => "Obama", :age => 54},
+  {:first => "Beyonce", :last => "Knowles", :age => 34},
+  {:first => "Brian", :last => "Bemben", :age => 32},
+  {:first => "Conor", :last => "Recko", :age => 23},
+  {:first=> "Aileen", :last => "Wall", :age => 93}
 ]
 
 system('clear')
@@ -67,14 +67,23 @@ loop do
   else
     @request = parse(raw_request)
     @params  = @request[:params]
-    if "GET http://localhost:3000/users HTTP/1.1"
+    if @request[:method] == "GET" && @params[:resource] == "users"
       puts "HTTP/1.1 200 OK"
-    elsif "GET http://localhost:3000/users/1 HTTP/1.1"
+      puts
+      USERS.each do |user|
+        user.each do |_,value|
+          print "#{value} "
+        end
+        print "\n"
+      end
+    elsif @request[:method] == "GET" && @params[:id] == "users"
       puts "HTTP/1.1 200 OK"
-    elsif "GET http://localhost:3000/users/9999999 HTTP/1.1"
-      puts "HTTP 404 File Not Found"
-    else
-      puts "That's not a valid request."
+      puts
+      USERS[:id]
+    # elsif raw_request == "GET http://localhost:3000/users/9999999 HTTP/1.1"
+    #   puts "HTTP 404 File Not Found"
+    # else
+    #   puts "That's not a valid request."
     end
   end
 end

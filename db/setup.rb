@@ -1,7 +1,7 @@
 require 'active_record'
 require 'yaml'
 
-db_config = YAML::load(File.open('config/database.yml'))
+db_config = YAML::load(File.open('../config/database.yml'))
 
 env_config = if ENV["TEST"]
   db_config["test"]
